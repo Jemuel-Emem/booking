@@ -96,6 +96,15 @@
                     </a>
                  </li>
 
+                 <li>
+                    <a href="{{ route('reservationhistory') }}"   class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-green-700 dark:hover:bg-gray-700 group">
+                        <i class="ri-close-circle-fill text-green-800"></i>
+                       <span class="flex-1 ms-3 whitespace-nowrap">Reservation History</span>
+
+                    </a>
+                 </li>
+
+
 
 
                  <li>

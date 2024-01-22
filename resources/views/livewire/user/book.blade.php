@@ -30,13 +30,14 @@
                                 <x-native-select
                                    label="Select Cottage"
                                    placeholder="Select cottage"
-                                   :options="['1', '2', '3', '4']"
+                                   :options="$cottageNumbers"
                                  wire:model="cottagenumber" required
                                    />
                             </div>
 
                             <div class="col-span-full md:mx-0 mx-12">
                                 <x-native-select
+                                wire:input="recalculateTotal"
                                    label="Select Payment"
                                    placeholder="Select payment"
                                    :options="['Fully Paid', 'Partial']"

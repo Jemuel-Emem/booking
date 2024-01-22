@@ -1,7 +1,7 @@
 <x-admin-layout>
     <div>
 
-        <div class="  p-20 ">
+        <div class="   ">
             <livewire:admin.cottage />
         </div>
 

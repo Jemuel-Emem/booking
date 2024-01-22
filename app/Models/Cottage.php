@@ -12,5 +12,6 @@ class Cottage extends Model
         'description',
         'price',
         'cottagephoto',
+        'cottagenumber',
     ];
 }

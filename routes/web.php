@@ -58,6 +58,9 @@ Route::view('profile', 'profile')
             Route::get('/Cottage', function(){
                 return view('admin.cottage');
             })->name('cottage');
+            Route::get('/ReservationHistory', function(){
+                return view('admin.reservationhistory');
+            })->name('reservationhistory');
     });
 
   //user here

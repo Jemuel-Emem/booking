@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\Cottage;
 use App\Models\Reservation;
 use WireUi\Traits\Actions;
 use Illuminate\Support\Str;
@@ -11,7 +12,7 @@ class Book extends Component
 {
     use Actions;
     use WithFileUploads;
-
+    public $cottageNumbers = [];
     public $fullname;
     public $location;
     public $number;
@@ -24,12 +25,44 @@ class Book extends Component
     public $photopayment;
     public $photoid;
     public $paymenttype;
-
+    public $price;
     public $calculatedTotal;
+    public $selectedCottagePrice;
+
+    public function mount()
+    {
+        $this->cottageNumbers = Cottage::pluck('id')->toArray();
+         $this->loadCottagePrice($this->cottageNumbers[0]);
+    }
+
+    private function loadCottagePrice($cottageId)
+{
+    $cottage = Cottage::find($cottageId);
+
+   if ($cottage) {
+        $this->selectedCottagePrice = $cottage->price;
+
+    }
+}
+public function updateCottageStatus($cottageId)
+{
+    $cottage = Cottage::find($cottageId);
+
+    if ($cottage) {
+        $cottage->status = 'not-available';
+        $cottage->save();
+    }
+}
+public function updatedCottagenumber()
+ {
+    $this->loadCottagePrice($this->cottagenumber);
+
+ }
     public function render()
     {
         return view('livewire.user.book');
     }
+
 
     public function booknow(){
 
@@ -59,6 +92,7 @@ class Book extends Component
 
 
         $reservation->save();
+        $this->updateCottageStatus($this->cottagenumber);
         $this->notification()->success(
             $title = 'Book Saved',
             $description = 'Your reservation was successfully saved. Your reservation ID is srv' . $nextId
@@ -95,7 +129,6 @@ class Book extends Component
 
         $children = is_numeric($this->children) ? $this->children : 0;
         $adults = is_numeric($this->adults) ? $this->adults : 0;
-
-        $this->calculatedTotal = ($children * 30) + ($adults * 50);
+ $this->calculatedTotal = ($children * 30) + ($adults * 50) + $this->selectedCottagePrice;
     }
 }

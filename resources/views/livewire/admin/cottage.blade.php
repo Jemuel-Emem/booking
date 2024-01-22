@@ -23,6 +23,9 @@
                     <th scope="col" class="px-6 py-3">
                         Cottage Photo
                      </th>
+                     <th scope="col" class="px-6 py-3">
+                        Status
+                     </th>
 
                 </tr>
             </thead>
@@ -41,6 +44,10 @@
 
                     <td class="px-6 py-4">
                         <img src="{{ asset(Storage::url($cot->cottagephoto)) }}" alt="Valid ID" class="w-20 h-16 rounded">
+                    </td>
+
+                    <td class="px-6 py-4">
+                        {{ $cot->status}}
                     </td>
                 </tr>
 

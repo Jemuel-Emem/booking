@@ -4,9 +4,11 @@ namespace App\Livewire\Admin;
 use App\Models\Cottage as Modelcottage;
 use Livewire\Component;
 use WireUi\Traits\Actions;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 class Cottage extends Component
 {
+    use  WithPagination;
     use Actions;
     use WithFileUploads;
     public $open_modal = false;
@@ -26,7 +28,11 @@ class Cottage extends Component
 
      $this->open_modal = true;
     }
+    public function asss()
+    {
 
+        $this->resetPage();
+    }
     public function submit(){
         $cottagephotopath = $this->cottagephoto->store('photos', 'public');
         $cottage = new Modelcottage([
