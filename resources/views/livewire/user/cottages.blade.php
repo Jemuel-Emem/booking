@@ -5,7 +5,7 @@
    </div>
   </div> --}}
 <div>
-    <div>
+    <div class="h-screen">
         <div class="flex gap-2 mt-2">
             <x-input label="" placeholder="Search..." wire:model="search" />
         <div>

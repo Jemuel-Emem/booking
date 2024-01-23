@@ -5,15 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cottage extends Model
+class Totalincome extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cottagecode',
-        'description',
-        'price',
-        'cottagephoto',
-        'cottagenumber',
-        'status',
+        'income',
     ];
 }

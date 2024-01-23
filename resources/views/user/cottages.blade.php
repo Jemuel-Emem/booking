@@ -1,7 +1,7 @@
 <x-user-layout>
     <div>
 
-        <div class=" md:p-20 p-1 ">
+        <div class="  p-20 ">
             <livewire:user.cottages />
         </div>
 

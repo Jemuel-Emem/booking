@@ -13,7 +13,7 @@ class Cottage extends Component
     use WithFileUploads;
     public $open_modal = false;
     public $search;
-    public $cottagephoto, $description, $price, $cottage;
+    public $cottagephoto, $description, $price, $cottage, $cottagecode;
     public function render()
     {
 
@@ -39,6 +39,7 @@ class Cottage extends Component
         'description' => $this->description,
         'price' => $this->price,
         'cottagephoto' => $cottagephotopath,
+        'cottagecode' => $this->cottagecode,
 
     ]);
 

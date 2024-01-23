@@ -31,7 +31,7 @@ class Book extends Component
 
     public function mount()
     {
-        $this->cottageNumbers = Cottage::pluck('id')->toArray();
+        $this->cottageNumbers = Cottage::pluck('cottagecode')->toArray();
          $this->loadCottagePrice($this->cottageNumbers[0]);
     }
 
@@ -44,15 +44,7 @@ class Book extends Component
 
     }
 }
-public function updateCottageStatus($cottageId)
-{
-    $cottage = Cottage::find($cottageId);
 
-    if ($cottage) {
-        $cottage->status = 'not-available';
-        $cottage->save();
-    }
-}
 public function updatedCottagenumber()
  {
     $this->loadCottagePrice($this->cottagenumber);
@@ -66,7 +58,18 @@ public function updatedCottagenumber()
 
     public function booknow(){
 
+        $selectedCottage = Cottage::where('cottagecode', $this->cottagenumber)->first();
 
+        if ($selectedCottage && $selectedCottage->status === 'not available') {
+
+            $this->notification()->error(
+                $title = 'Cottage Not Available',
+                $description = 'The selected cottage is not available for reservation.'
+            );
+
+            // You can handle the error in any way you prefer, such as returning or redirecting
+            return;
+        }
         $photopaymentpath = $this->photopayment->store('photos', 'public');
 
         $photoidpath = $this->photoid ? $this->photoid->store('photos', 'public') : null;
@@ -92,7 +95,7 @@ public function updatedCottagenumber()
 
 
         $reservation->save();
-        $this->updateCottageStatus($this->cottagenumber);
+
         $this->notification()->success(
             $title = 'Book Saved',
             $description = 'Your reservation was successfully saved. Your reservation ID is srv' . $nextId

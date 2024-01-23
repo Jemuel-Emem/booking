@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cottages', function (Blueprint $table) {
+        Schema::create('totalincomes', function (Blueprint $table) {
             $table->id();
-            $table->string('cottagecode');
-            $table->string('description');
-            $table->string('price');
-            $table->string('cottagephoto')->nullable();
-            $table->string('status')->default("available");
+            $table->string('income');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cottages');
+        Schema::dropIfExists('totalincomes');
     }
 };

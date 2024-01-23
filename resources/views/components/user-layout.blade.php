@@ -29,6 +29,7 @@
 <body class="font-sans antialiased  h-full bg-no-repeat bg-gradient-to-tr from-green-700 via-white to-green-100">
     @livewireScripts
     <x-notifications position="top-right" />
+
     <nav class="bg-green-600 border-gray-200 dark:bg-gray-900 ">
         <div class=" flex flex-wrap items-center justify-between mx-auto p-4">
           <a href="{{ route('landingpage') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -68,11 +69,18 @@
 
       <div class=" ">
         <div class=" border-gray-200  rounded-lg dark:border-gray-700">
+
             <main class="">
                 {{ $slot }}
             </main>
         </div>
     </div>
+
+
+
+
+
+
 
 
 </body>

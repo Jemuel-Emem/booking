@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 use App\Models\ReservationList as res;
 use App\Models\ReservationHistory as resHistory;
 use Livewire\Component;
+use App\Models\Cottage;
 use Livewire\WithPagination;
 class Reservationlist extends Component
 {
@@ -47,12 +48,32 @@ class Reservationlist extends Component
 
             ]);
 
-
+            $this->updateCottageStatus($reservation->cottagenumber);
             $reservation->delete();
 
             $this->resetPage();
         }
 
     }
+
+    private function updateCottageStatus($cottageCode)
+    {
+       // dd('Provided Cottage Code:', $cottageCode);
+
+    $cottage = Cottage::where('cottagecode', $cottageCode)->first();
+
+    // Add debug statement to check if the cottage is found
+    // dd('Cottage found:', $cottage);
+
+    if ($cottage) {
+        $cottage->update([
+            'status' => 'available',
+        ]);
+
+    } else {
+        dd('Cottage not found.');
+    }
+}
+
 
 }

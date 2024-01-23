@@ -51,6 +51,9 @@
                       <th scope="col" class="px-6 py-3">
                       ID
                          </th>
+                     <th scope="col" class="px-6 py-3">
+                           Date/Time
+                    </th>
 
                     <th scope="col" class="px-6 py-3 text-center">
                      Action
@@ -104,6 +107,10 @@
                         <img src="{{ asset(Storage::url($reservation->photoid)) }}" alt="Valid ID" class="w-20 h-16 rounded">
 
                     </td>
+                    <td class="px-6 py-4">
+                       {{ $reservation->created_at->format('Y-m-d H:i:s') }}
+                    </td>
+
 
                     <td class="px-6 py-4">
                         <span class="flex flex-col gap-2">
