@@ -15,6 +15,7 @@ class Pending extends Component
     use  WithPagination;
 
     public $search;
+   public $edit_modal =false;
     public function render()
     {
         $search = '%' . $this->search . '%';
@@ -28,8 +29,10 @@ class Pending extends Component
     {
 
         $this->resetPage();
+    }
 
-
+    public function cancelthis(){
+        $this->edit_modal= true;
     }
     public function confirm($Id){
         $reservation = Reservation::find($Id);
@@ -109,6 +112,7 @@ class Pending extends Component
             $reservation->delete();
 
             $this->resetPage();
+            $this->edit_modal=false;
         }
 
     }

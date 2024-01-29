@@ -13,7 +13,7 @@ class Book extends Component
     use Actions;
     use WithFileUploads;
     public $cottageNumbers = [];
-    public $fullname;
+    public $fullname,$bookdate;
     public $location;
     public $number;
     public $cottagenumber;
@@ -29,27 +29,29 @@ class Book extends Component
     public $calculatedTotal;
     public $selectedCottagePrice;
 
+
     public function mount()
     {
-        $this->cottageNumbers = Cottage::pluck('cottagecode')->toArray();
-         $this->loadCottagePrice($this->cottageNumbers[0]);
+        // $this->cottageNumbers = Cottage::pluck('cottagecode')->toArray();
+        //  $this->loadCottagePrice($this->cottageNumbers[0]);
+
+        $this->cottageNumbers = Cottage::where('status', 'available')->pluck('cottagecode')->toArray();
+        $this->loadCottagePrice($this->cottageNumbers[0]);
     }
 
     private function loadCottagePrice($cottageId)
 {
-    $cottage = Cottage::find($cottageId);
 
-   if ($cottage) {
+    $cottage = Cottage::where('cottagecode', $cottageId)->first();
+
+    if ($cottage) {
         $this->selectedCottagePrice = $cottage->price;
 
+    } else {
+        dd("Cottage not found!");
     }
 }
 
-public function updatedCottagenumber()
- {
-    $this->loadCottagePrice($this->cottagenumber);
-
- }
     public function render()
     {
         return view('livewire.user.book');
@@ -77,8 +79,9 @@ public function updatedCottagenumber()
         // $photoidpath = $this->photoid->store('photos', 'public');
 
         $nextId = Str::random(6);
-    $reservation = new Reservation([
+       $reservation = new Reservation([
         'reservationid' => 'srv' . $nextId,
+        'bookdate' => $this->bookdate,
         'fullname' => $this->fullname,
         'location' => $this->location,
         'number' => $this->number,
@@ -86,20 +89,20 @@ public function updatedCottagenumber()
         'paymenttype' => $this->paymenttype,
         'children' => $this->children,
         'adults' => $this->adults,
-        'checkin' => $this->checkin,
-        'checkout' => $this->checkout,
+        'checkin' => $this-> checkin ,
+        'checkout' => $this-> checkout,
         'totalbill' => $this->calculatedTotal,
         'photopayment' => $photopaymentpath,
         'photoid' => $photoidpath,
     ]);
-
-
         $reservation->save();
+        dd("Sasasa");
 
-        $this->notification()->success(
-            $title = 'Book Saved',
-            $description = 'Your reservation was successfully saved. Your reservation ID is srv' . $nextId
-        );
+        $this->dialog()->show([
+            'title'       => 'Book Saved',
+            'description' => 'Your reservation was successfully saved. Your reservation ID is srv' . $nextId,
+            'icon'        => 'success'
+        ]);
         $this->resetForm();
     }
 

@@ -107,7 +107,7 @@
 
                     <td class="px-6 py-4">
                         <span class="flex flex-col gap-2">
-                           <button class="bg-green-500 hover:bg-green-600 text-white p-1 rounded"  wire:click="edit({{ $reservation->id }})">Update</button>
+                           <button class="bg-red-500 hover:bg-red-600 text-white p-1 rounded"  wire:click="delete">Delete</button>
 
                         </span>
                     </td>
@@ -119,53 +119,19 @@
 
 
     <x-modal wire:model.defer="edit_modal">
-        <x-card title="Edit Data">
-            <div class="space-y-3">
-              <div class="flex gap-2">
-                <x-input label="Reservation ID" wire:model="reservationid" placeholder="" />
-                <x-input label="Full Name" placeholder="" wire:model="fullname" />
-              </div>
-              <div class="flex gap-2">
-                <x-input label="Location" wire:model="location" placeholder="" />
-                <x-input label="Number" placeholder="" wire:model="number" />
-              </div>
-              <div class="flex gap-2">
-                <x-input label="Cottage #" wire:model="cottagenumber" placeholder="" />
-                <x-input label="Children" placeholder="" wire:model="children" />
-              </div>
-              <div class="flex gap-2">
-                <x-input label="Payment" wire:model="paymenttype" placeholder="" />
-              </div>
-              <div class="flex gap-2">
-                <x-input label="Adults" wire:model="adults" placeholder="" />
-              </div>
-              <div class="flex gap-2">
-                <x-input label="Check In" wire:model="checkin" placeholder="" />
-                <x-input label="Check Out" placeholder="" wire:model="checkout" />
-              </div>
-              <div class="flex gap-2">
-                <x-input label="Total Bill" wire:model="totalbill" placeholder="" />
-              </div>
-
-               <div class="flex justify-around gap-2 ">
-                <div>
-                    <label for="">Prof Of Payment</label>
-                    <img src="{{ asset(Storage::url($photopayment)) }}" alt="Valid ID" class="w-20 h-16 rounded">
-                </div>
-                <div>
-                    <label for="">Valid ID</label>
-                    <img src="{{ asset(Storage::url($photoid)) }}" alt="Valid ID" class="w-20 h-16 rounded">
-                </div>
-              </div>
-
-            </div>
+        <x-card title="Confirm to delete">
+            @foreach($reserv as $reservation)
+            <p class="text-red-500 text-xl">
+             Are you sure you want to delete this reservation
+            </p>
 
             <x-slot name="footer">
                 <div class="flex justify-end gap-x-4">
-                    <x-button flat label="Cancel" x-on:click="close"  wire:click="back"/>
-                    <x-button primary label="Submit" wire:click="submitEdit" spinner="submitEdit" />
+                    <x-button flat label="Cancel" x-on:click="close" />
+                    <x-button negative label="Delete" wire:click="confirmDelete({{ $reservation->id }})" />
                 </div>
             </x-slot>
+            @endforeach
         </x-card>
     </x-modal>
 </div>

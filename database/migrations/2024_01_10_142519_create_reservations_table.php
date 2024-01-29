@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->string('reservationid');
+            $table->datetime('bookdate');
             $table->string('fullname');
             $table->string('location');
             $table->string('number');
@@ -21,8 +22,8 @@ return new class extends Migration
             $table->string('paymenttype');
             $table->integer('children');
             $table->integer('adults');
-            $table->time('checkin');
-            $table->time('checkout');
+            $table->datetime('checkin')->nullable();
+            $table->datetime('checkout')->nullable();
             $table->string('totalbill');
             $table->string('photopayment')->nullable();
             $table->string('photoid')->nullable();

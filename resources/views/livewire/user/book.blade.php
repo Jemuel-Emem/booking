@@ -14,8 +14,16 @@
                         </div>
                     </div>
                     <form wire:submit.prevent="booknow">
-
                         <div class="mt-4 space-y-2 p-4 ">
+                            <div class="flex md:justify-end justify-center">
+                                <div class="  md:w-60 ">
+                                    <x-datetime-picker
+                                    label="Appointment Date"
+                                    placeholder="Appointment Date"
+                                    wire:model.defer="bookdate"
+                                />
+                                </div>
+                            </div>
                             <div class="md:mx-0 mx-12">
                                 <x-input wire:model="fullname"  label="Fullname" placeholder="Fullname" required  />
                             </div>
@@ -51,11 +59,8 @@
                                     <x-input wire:model="children" wire:input="recalculateTotal" label="# of Childrens" placeholder="Number of childrens" required />
 
                                 </div>
-
                                 <div>
                                     <x-input wire:model="adults" wire:input="recalculateTotal" label="# of Adults" placeholder="Number of adults" required />
-
-
                                 </div>
                             </div>
 
@@ -63,7 +68,7 @@
                                 <div class="md:mx-0 mx-12">
                                     <x-time-picker
                                     label="Check In"
-                                    placeholder="12:00 AM"
+                                    placeholder="Appoitment date"
                                     wire:model.defer="checkin" required
                                 />
                                 </div>
@@ -71,7 +76,7 @@
                                 <div class="md:mx-0 mx-12">
                                     <x-time-picker
                                     label="Check Out"
-                                    placeholder="12:00 AM"
+                                    placeholder="Appoitment date"
                                     wire:model.defer="checkout" required
                                 />
                                 </div>

@@ -108,7 +108,7 @@
                     <td class="px-6 py-4">
                         <span class="flex flex-col gap-2">
                            <button class="bg-green-500 hover:bg-green-600 text-white p-1 rounded"  wire:click="confirm({{ $reservation->id }})">Confirmed</button>
-                           <button class="bg-red-500 hover:bg-red-600 text-white p-1 rounded" wire:click="cancell({{ $reservation->id }})">Cancell</button>
+                           <button class="bg-red-500 hover:bg-red-600 text-white p-1 rounded" wire:click="cancelthis">Cancell</button>
                         </span>
                     </td>
                 </tr>
@@ -117,4 +117,20 @@
         </table>
     </div>
 
+    <x-modal wire:model.defer="edit_modal">
+        <x-card title="Confirm to delete">
+            @foreach($reserv as $reservation)
+            <p class="text-red-600 text-xl">
+             Are you sure you want to cancell this reservation?
+            </p>
+
+            <x-slot name="footer">
+                <div class="flex justify-end gap-x-4">
+                    <x-button flat label="Close" x-on:click="close" />
+                    <x-button negative label="Cancel" wire:click="cancell({{ $reservation->id }})" />
+                </div>
+            </x-slot>
+            @endforeach
+        </x-card>
+    </x-modal>
 </div>

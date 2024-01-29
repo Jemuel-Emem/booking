@@ -1,7 +1,7 @@
 <x-user-layout>
     <div>
 
-        <div class="  p-20 ">
+        <div class="  h-screen w-screen ">
             <livewire:user.index />
         </div>
 
