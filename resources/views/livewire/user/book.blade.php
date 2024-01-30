@@ -5,6 +5,7 @@
             <div class=" z-10 flex flex-col flex-1  bg-white shadow-2xl  md:flex-none md:px-6 sm:justify-center">
                     <div class="flex flex-col md:p-0 p-10">
                         <div>
+
                             <h2 class="text-2xl md:text-4xl text-blue-700 text-center">Reserve Now!</h2>
                             <p class="mt-2 text-sm md:text-base text-gray-500 ">
                                 Complete the details below so I can process your request and then
@@ -12,6 +13,15 @@
                             </p>
                             <p>Details for payment <span class="text-blue-700">GCASH-0900080</span> or <span class="text-blue-700">BANK-0808080</span></p>
                         </div>
+
+
+                    </div>
+                    <div class="grid grid-cols-2 ">
+                      <div> @error('fullname') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('bookdate') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('location') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('number') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('cottage') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
                     </div>
                     <form wire:submit.prevent="booknow">
                         <div class="mt-4 space-y-2 p-4 ">
@@ -24,14 +34,16 @@
                                 />
                                 </div>
                             </div>
+
                             <div class="md:mx-0 mx-12">
-                                <x-input wire:model="fullname"  label="Fullname" placeholder="Fullname" required  />
+                                <x-input wire:model="fullname" label="Fullname" placeholder="Fullname" wire:ignore />
                             </div>
+
                             <div class="md:mx-0 mx-12 col-span-full">
-                                <x-input wire:model="location"  label="Location" placeholder="Location" required />
+                                <x-input wire:model="location"  label="Location" placeholder="Location" wire:ignore/>
                             </div>
                             <div class="col-span-full md:mx-0 mx-12">
-                                <x-input wire:model="number"  label="Number" placeholder="number" required />
+                                <x-input wire:model="number"  label="Number" placeholder="number" />
                             </div>
 
                             <div class="col-span-full md:mx-0 mx-12">
@@ -39,7 +51,7 @@
                                    label="Select Cottage"
                                    placeholder="Select cottage"
                                    :options="$cottageNumbers"
-                                 wire:model="cottagenumber" required
+                                 wire:model="cottagenumber"
                                    />
                             </div>
 
@@ -49,18 +61,18 @@
                                    label="Select Payment"
                                    placeholder="Select payment"
                                    :options="['Fully Paid', 'Partial']"
-                                 wire:model="paymenttype" required
+                                 wire:model="paymenttype"
                                    />
                             </div>
 
                             <div class="flex justify-between gap-2 md:mx-0 mx-12">
                                 <div>
 
-                                    <x-input wire:model="children" wire:input="recalculateTotal" label="# of Childrens" placeholder="Number of childrens" required />
+                                    <x-input wire:model="children" wire:input="recalculateTotal" label="# of Childrens" placeholder="Number of childrens"  />
 
                                 </div>
                                 <div>
-                                    <x-input wire:model="adults" wire:input="recalculateTotal" label="# of Adults" placeholder="Number of adults" required />
+                                    <x-input wire:model="adults" wire:input="recalculateTotal" label="# of Adults" placeholder="Number of adults"  />
                                 </div>
                             </div>
 
@@ -69,7 +81,7 @@
                                     <x-time-picker
                                     label="Check In"
                                     placeholder="Appoitment date"
-                                    wire:model.defer="checkin" required
+                                    wire:model.defer="checkin"
                                 />
                                 </div>
 
@@ -77,7 +89,7 @@
                                     <x-time-picker
                                     label="Check Out"
                                     placeholder="Appoitment date"
-                                    wire:model.defer="checkout" required
+                                    wire:model.defer="checkout"
                                 />
                                 </div>
                             </div>
@@ -90,14 +102,14 @@
                                 name="email">
                                 Proof of Payment
                             </label>
-                            <input type="file" wire:model="photopayment" accept="image/*" required>
+                            <input type="file" wire:model="photopayment" accept="image/*" >
                             </div>
                             <div class="col-span-full">
                                 <label class="block mb-3 text-sm md:text-base font-medium text-gray-600"
                                     name="email">
                                     Valid ID
                                 </label>
-                                <input type="file" wire:model="photoid" required>
+                                <input type="file" wire:model="photoid" >
 
                             </div>
                             <div class="col-span-full">

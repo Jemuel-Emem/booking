@@ -8,12 +8,14 @@ use App\Models\Cottage;
 use App\Models\Reservation;
 use WireUi\Traits\Actions;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 class Book extends Component
 {
     use Actions;
     use WithFileUploads;
     public $cottageNumbers = [];
-    public $fullname,$bookdate;
+    public $fullname;
+    public $bookdate;
     public $location;
     public $number;
     public $cottagenumber;
@@ -56,32 +58,45 @@ class Book extends Component
     {
         return view('livewire.user.book');
     }
+    public function rules()
+    {
+        return [
+            'fullname' => 'required|string|max:255|regex:/^[^0-9]+$/',
+            'bookdate' => 'required',
+            'location' => 'required|string',
+            'cottagenumber' => 'required|number|max:255',
+            'number' => 'required|numeric|digits:11',
+            'cottagenumber' => 'required',
+            'paymenttype'=>'required',
+            'children' => 'required',
+            'adults'=>'required',
+
+        ];
+    }
 
 
     public function booknow(){
 
+        $this->validate();
+
         $selectedCottage = Cottage::where('cottagecode', $this->cottagenumber)->first();
 
         if ($selectedCottage && $selectedCottage->status === 'not available') {
-
             $this->notification()->error(
                 $title = 'Cottage Not Available',
                 $description = 'The selected cottage is not available for reservation.'
             );
-
-            // You can handle the error in any way you prefer, such as returning or redirecting
             return;
         }
         $photopaymentpath = $this->photopayment->store('photos', 'public');
 
         $photoidpath = $this->photoid ? $this->photoid->store('photos', 'public') : null;
-
-        // $photoidpath = $this->photoid->store('photos', 'public');
-
+        $formattedBookDate = Carbon::parse($this->bookdate)->toDateTimeString();
         $nextId = Str::random(6);
        $reservation = new Reservation([
+
         'reservationid' => 'srv' . $nextId,
-        'bookdate' => $this->bookdate,
+        'bookdate' => $formattedBookDate,
         'fullname' => $this->fullname,
         'location' => $this->location,
         'number' => $this->number,
@@ -89,15 +104,13 @@ class Book extends Component
         'paymenttype' => $this->paymenttype,
         'children' => $this->children,
         'adults' => $this->adults,
-        'checkin' => $this-> checkin ,
-        'checkout' => $this-> checkout,
+        'checkin' => Carbon::parse($this->checkin)->toDateTimeString(),
+        'checkout' => Carbon::parse($this->checkout)->toDateTimeString(),
         'totalbill' => $this->calculatedTotal,
         'photopayment' => $photopaymentpath,
         'photoid' => $photoidpath,
     ]);
         $reservation->save();
-        dd("Sasasa");
-
         $this->dialog()->show([
             'title'       => 'Book Saved',
             'description' => 'Your reservation was successfully saved. Your reservation ID is srv' . $nextId,

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'reservationid', 'bookdate', 'fullname', 'location', 'number', 'cottagenumber',
+        'paymenttype', 'children', 'adults', 'checkin', 'checkout', 'totalbill',
+        'photopayment', 'photoid',
+    ];
 }
