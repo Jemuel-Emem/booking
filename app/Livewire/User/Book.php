@@ -38,7 +38,9 @@ class Book extends Component
         //  $this->loadCottagePrice($this->cottageNumbers[0]);
 
         $this->cottageNumbers = Cottage::where('status', 'available')->pluck('cottagecode')->toArray();
-        $this->loadCottagePrice($this->cottageNumbers[0]);
+        // $this->cottagenumber = null;
+        // $this->loadCottagePrice($this->cottageNumbers[0]);
+
     }
 
     private function loadCottagePrice($cottageId)
@@ -68,8 +70,8 @@ class Book extends Component
             'number' => 'required|numeric|digits:11',
             'cottagenumber' => 'required',
             'paymenttype'=>'required',
-            'children' => 'required',
-            'adults'=>'required',
+            'children' => 'required|integer|min:1',
+            'adults' => 'required|integer|min:1',
 
         ];
     }
@@ -145,9 +147,14 @@ class Book extends Component
 
     public function recalculateTotal()
     {
-
         $children = is_numeric($this->children) ? $this->children : 0;
         $adults = is_numeric($this->adults) ? $this->adults : 0;
- $this->calculatedTotal = ($children * 30) + ($adults * 50) + $this->selectedCottagePrice;
+        $this->calculatedTotal = ($children * 30) + ($adults * 50) + $this->selectedCottagePrice;
+    }
+
+    public function updatedCottagenumber()
+    {
+        $this->loadCottagePrice($this->cottagenumber);
+        $this->recalculateTotal();
     }
 }

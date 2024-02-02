@@ -21,8 +21,13 @@
                       <div> @error('bookdate') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
                       <div> @error('location') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
                       <div> @error('number') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
-                      <div> @error('cottage') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('cottagenumber') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('paymenttype') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('children') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
+                      <div> @error('adults') <span class="text-red-500">*{{ $message }}</span> @enderror</div>
                     </div>
+
+
                     <form wire:submit.prevent="booknow">
                         <div class="mt-4 space-y-2 p-4 ">
                             <div class="flex md:justify-end justify-center">
